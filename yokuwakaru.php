@@ -71,4 +71,16 @@ if(isset($_GET['number']) && !empty($_GET['number'])){
 	}
 }
 
+$week = array('月','火','水','木','TGIF!','土','日');
+echo '2016年2月のカレンダー<br>';
+echo '<select name="february">';
+for ($i=1; $i<=29; $i++){
+	if ($i==28){
+		echo '<option>'.$i.'日('.$week[$i%7].') My birthday!<br></option>';
+	} else {
+		echo '<option>'.$i.'日('.$week[$i%7].')<br></option>';
+	}
+}
+echo '</select>';
+
 ?>
