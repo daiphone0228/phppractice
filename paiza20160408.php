@@ -40,47 +40,54 @@
     for($trip[0]; $trip[0]>0; $trip[0]--) {
         $input = trim(fgets(STDIN));
         $weather = explode(" ", $input);
-        $day[] = $weather[0];
-        $rain[] = $weather[1];
+        $day[$weather[0]] = $weather[1];
     }
     //var_dump($trip[1]);
-    //var_dump($day);
-    var_dump($rain);
-    $max = count($rain);
+    var_dump($day);
+    //var_dump($rain);
+    //$max = count($rain);
     //var_dump($max);
-    for($i=0; $i<$max; $i++){
-        $tripDuring[] = $rain[$i];
+    foreach($day as $rain){
+        $tripDuring[] = $rain;
         if(count($tripDuring) == $trip[1]){
-            //$tripDuring = array_slice($rain, 0 , $trip[1]);
-            $rainAverage = array_sum($tripDuring) / $trip[1];
-            $rainAverageSum[] = floor($rainAverage);
+            $rainAverage = floor(array_sum($tripDuring) / $trip[1]);
+            $rainAverageSum[] = $rainAverage;
             unset($tripDuring[0]);
             $tripDuring = array_merge($tripDuring);
         }
     }
     $rainMin = min($rainAverageSum);
-    for($i=0; $i<$max; $i++){
-        $tripDuring[] = $rain[$i];
-        if(count($tripDuring) == $trip[1]){
-            //$tripDuring = array_slice($rain, 0 , $trip[1]);
-            $rainAverage = array_sum($tripDuring) / $trip[1];
-            $rainAverageSum[] = floor($rainAverage);
-            unset($tripDuring[0]);
-            $tripDuring = array_merge($tripDuring);
+    var_dump($day);
+    $tripDate = array();
+    foreach($day as $date => $rain){
+        $tripAdd = array($date => $rain);
+        $tripDate = $tripDate + $tripAdd;
+        if(count($tripDate) == $trip[1]){
+            $rainAverage = floor(array_sum($tripDate) / $trip[1]);
+            if($rainAverage == $rainMin){
+                $firstAndEnd = array_keys($tripDate);
+            	reset($tripDate);
+            	$first = key($tripDate);
+            	end($tripDate);
+            	$end = key($tripDate);
+            }
+            $delete = array_shift($tripDate);
+            //$tripDate = array_merge($tripDate);
         }
-        if($trip)
     }
     
     //var_dump($rain);
-    //var_dump($tripDuring);
+    //var_dump($tripDate);
     //var_dump($rainAverageSum);
-    var_dump($rainMin);
+    //var_dump($rainMin);
+    var_dump($first);
+    var_dump($end);
+    var_dump($firstAndEnd);
     
     // 配列を最初から順に3つずつ降水確率を足していき
     // その平均を求めて、それらが一番低いものの日程を出力する
     // array_sliceを使用し、配列のなかの値を日程分だけ取得
 ?>
-
 
 
 
