@@ -42,11 +42,8 @@
         $weather = explode(" ", $input);
         $day[$weather[0]] = $weather[1];
     }
-    //var_dump($trip[1]);
-    var_dump($day);
-    //var_dump($rain);
-    //$max = count($rain);
-    //var_dump($max);
+    // var_dump($trip[1]);
+    // var_dump($day);
     foreach($day as $rain){
         $tripDuring[] = $rain;
         if(count($tripDuring) == $trip[1]){
@@ -57,37 +54,97 @@
         }
     }
     $rainMin = min($rainAverageSum);
-    var_dump($day);
+    // var_dump($day);
     $tripDate = array();
     foreach($day as $date => $rain){
-        $tripAdd = array($date => $rain);
+        $tripAdd = array($date."日" => $rain);
+        $tripDate = $tripDate + $tripAdd;
+        if(count($tripDate) == $trip[1]){
+            // var_dump($tripDate);
+            $rainAverage = floor(array_sum($tripDate) / $trip[1]);
+            if($rainAverage == $rainMin){
+                // $firstAndEnd = array_keys($tripDate);
+            	reset($tripDate);
+            	$first = rtrim(key($tripDate), "日");
+            	end($tripDate);
+            	$end = rtrim(key($tripDate), "日");
+            }
+           	array_shift($tripDate);
+        }
+    }
+
+	echo $first . " " . $end;
+
+    //var_dump($rain);
+    // var_dump($tripDate);
+    // var_dump($rainAverageSum);
+    // var_dump($rainMin);
+    // var_dump($first);
+    // var_dump($end);
+    // var_dump($firstAndEnd);
+
+?>
+
+<?php
+	// 最初の列にある連休の日数と旅行の日数を配列にいれる
+	// その日数分日付と降水確率の列を取り出すために、for文で繰り返す
+	// その際、日付は連想配列の"キー"に、降水確率は"値"に代入する
+	// 連想配列を以下の内容でforeachで回し、まず降水確率の平均値を求める
+		// if文で配列の値の数と旅行の日数が同じ場合という条件分岐文を作る
+		// その際、配列にある値の合計を旅行日数で割り、さらに小数点以下を切り捨てて変数に代入する
+		// その変数の値を配列にいれる
+		// 最初の日付のみを削除するために、配列の先頭、つまりキーが[0]の値を削除する
+		// このままだとキーがずれてしまうのでarray_mergeで配列を一旦整理する
+	// それらを全て繰り返しすと、$rainAverageSumに平均値が配列として入る
+	// その平均値の最も小さい値を求めるために、min()関数を使用し、それを変数$rainMinに代入
+	// 次の段階として、最小の平均値が求められた日付を取り出すforeach文を作成
+	// 同じようにforeach文で回すが、今回は平均値を配列に代入はしない
+	// さらに今回は日付が必要なので、値だけでなくキーも連想配列から取り出す
+		// 最初のforeach文と同じように、旅行日数分で平均を求める条件分岐文を入れる
+		// 今回はその平均値が、先ほど求めた、最小の平均値と同じ場合にのみ発生するイベントを記述する
+		// 最小の平均値の場合、その時の連想配列の最初と最後のキーを取り出すために、reset()関数とend()関数を使用する
+		// 連想配列の場合、unsetでキーを指定して削除することができないため（変数のため）、array_shift()を使用し自動的に先頭の値が取り出されるようにする
+		// 通常、連想配列をarray_shift()するとキーはそのまま残るのだが、数字のみに場合、通常の配列と認識されてしまうため、あえて最初にキーとして代入するときに、"日"という文字を追加する
+		// もちろん取り出すときは"日"は必要ないため、rtrim()関数で指定の文字列のみ削除するようにする
+	// 最後に取り出した旅行の日程の最初と最後の日付を半角スペースで間を空け表示する
+    $input = trim(fgets(STDIN));
+    $trip = explode(" ", $input);
+    for($trip[0]; $trip[0]>0; $trip[0]--) {
+        $input = trim(fgets(STDIN));
+        $weather = explode(" ", $input);
+        $day[$weather[0]] = $weather[1];
+    }
+    foreach($day as $rain){
+        $tripDuring[] = $rain;
+        if(count($tripDuring) == $trip[1]){
+            $rainAverage = floor(array_sum($tripDuring) / $trip[1]);
+            $rainAverageSum[] = $rainAverage;
+            unset($tripDuring[0]);
+            $tripDuring = array_merge($tripDuring);
+        }
+    }
+    $rainMin = min($rainAverageSum);
+    $tripDate = array();
+    foreach($day as $date => $rain){
+        $tripAdd = array($date."日" => $rain);
         $tripDate = $tripDate + $tripAdd;
         if(count($tripDate) == $trip[1]){
             $rainAverage = floor(array_sum($tripDate) / $trip[1]);
             if($rainAverage == $rainMin){
-                $firstAndEnd = array_keys($tripDate);
             	reset($tripDate);
-            	$first = key($tripDate);
+            	$first = rtrim(key($tripDate), "日");
             	end($tripDate);
-            	$end = key($tripDate);
+            	$end = rtrim(key($tripDate), "日");
             }
-            $delete = array_shift($tripDate);
-            //$tripDate = array_merge($tripDate);
+           	array_shift($tripDate);
         }
     }
     
-    //var_dump($rain);
-    //var_dump($tripDate);
-    //var_dump($rainAverageSum);
-    //var_dump($rainMin);
-    var_dump($first);
-    var_dump($end);
-    var_dump($firstAndEnd);
-    
-    // 配列を最初から順に3つずつ降水確率を足していき
-    // その平均を求めて、それらが一番低いものの日程を出力する
-    // array_sliceを使用し、配列のなかの値を日程分だけ取得
+    echo $first . " " . $end;
+
+
 ?>
+
 
 
 
