@@ -25,5 +25,21 @@
     }
     $word = implode($result);
     echo substr($word, 0,$a[1]);
+
+?>
+
+<?php
+    // 指定の睡眠開始時間から、残業時間の1/3の時間を睡眠時間として追加し、その時刻を求める
+	// date()関数とstrtotime()関数を使用
+	// あらかじめ指定の時刻は変数に入れておく
+    $baseTime = "01:00";
+    $i = trim(fgets(STDIN));
+    for($i; $i>0; $i--){
+        $time = trim(fgets(STDIN));
+        $result = $time / 3;
+        $sleepTime = date("H:i",strtotime($baseTime. "-$result minute"));
+        echo $sleepTime . "\n";
+    }
     
 ?>
+
