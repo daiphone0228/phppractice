@@ -21,7 +21,8 @@
     }
     echo array_sum($sum);
 
-
+?>
+<?php
 
     // 英単語の正誤判定
     // 単語が同じなら2点、異なる場合は0点
@@ -33,13 +34,14 @@
         $array[] = $input;
         $input = trim(fgets(STDIN));
     }
-    for ($y=0; $y<=$array[0]; $y++) {
+    for ($y=1; $y<=$array[0]; $y++) {
         $english = explode(' ',$array[$y]);
+        // var_dump($english);
         if($english[0]==$english[1]){
             $sum[]=2;
-        }elseif(mb_strlen($english[0]) !== mb_strlen($english[1])) {
+        }elseif(strlen($english[0]) !== strlen($english[1])) {
             $sum[]=0;
-        }elseif(mb_strlen($english[0]) == mb_strlen($english[1])) {
+        }elseif(strlen($english[0]) == strlen($english[1])) {
             $en2 = str_split($english[0]);
             $en3 = str_split($english[1]);
             $diff = array_diff_assoc($en2, $en3);
@@ -52,8 +54,47 @@
             false;
         }
     }
+        
+    // var_dump($sum);
     echo array_sum($sum);
 
+?>
+
+
+    <?php
+    // 単語問題復習
+    // てこずり中
+    $input = trim(fgets(STDIN));
+    for($i = 0; $i<$input; $i++){
+        $word = trim(fgets(STDIN));
+        $words = explode(" ", $word);
+        $word1 = $words[0];
+        $word2 = $words[1];
+        $wordNum1 = strlen($word1);
+        $wordNum2 = strlen($word2);
+        // echo $wordNum1 . "\n";
+        // echo $wordNum2 . "\n";
+        if ($words[0] == $words[1]){
+            $result[] = 2;
+        } else if ($wordNum1 == $wordNum2){
+            $word1 = str_split($words[0]);
+            $word2 = str_split($words[1]);
+            $diff = array_diff($word1, $word2);
+            var_dump($diff);
+            if (count($diff) == 1){
+                $result[] = 1;
+            } else if (count($diff) >= 2){
+                $result[] = 0;
+            }
+        } else {
+            $result[] = 0;
+        }
+    }
+    echo array_sum($result);
+?>
+
+
+<?php 
     
     //数字埋め、左を0で穴埋め、3桁仕様 98→098
     $input_lines = trim(fgets(STDIN));
