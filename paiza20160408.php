@@ -145,6 +145,58 @@
 
 ?>
 
+<?php
+    // C029:旅行の計画の復習
+    // 連休日数と旅行日数を取得
+    $input = trim(fgets(STDIN));
+    $param = explode(" ", $input);
+    $allDay = $param[0];
+    $trip = $param[1];
+    $dayArray = array();
+    // echo $day;
+    // echo $trip;
+    // 全日数の日付と降水確率を配列にいれる
+    // 日付はキーとして
+    for($i=0; $i<$allDay; $i++){
+        $l = trim(fgets(STDIN));
+        $param2 = explode(" ", $l);
+        $rain = $param2[1];
+        $day = $param2[0];
+        $dayArray[$day."日"] = $rain; // この際日付として"日"を入れておかないと、切り取った時にキーの値がリセットされてしまう
+    }
+    // var_dump($dayArray);
+    // 旅行日数分の降水確率を引っ張る際にその必要回数を取得
+    $roop = $allDay - $trip + 1; // 全体の日数 - 旅行日数 + 1で求められる
+    // その回数分for文をまわす
+    for($i=0; $i<$roop; $i++){
+        $rainSum = array_slice($dayArray, $i, $trip); // 切り取り
+        $rainAverage[] = intval(array_sum($rainSum) / $trip); // 平均の整数を配列にいれる
+    }
+    // var_dump($rainAverage);
+    // その中の最小の値を変数に代入
+    $min = min($rainAverage);
+    // echo $min;
+    for($i=0; $i<$roop; $i++){
+        $rainSum = array_slice($dayArray, $i, $trip);
+        $rainAve2 = intval(array_sum($rainSum) / $trip);
+        if($rainAve2 == $min){
+            // var_dump($rainSum);
+            // 最小の値のときの切り取った配列を別の配列に代入
+            $bestDays = $rainSum;
+        }
+    }
+    // キーを取得する
+    foreach($bestDays as $key => $value){
+        $result[] = str_replace("日", "",$key);
+    }
+    // var_dump($result);
+    $first = $result[0];
+    $end = $result[$trip-1];
+    
+    echo $first. " ". $end;
+        
+?>
+
 
 
 
