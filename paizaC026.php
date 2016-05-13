@@ -21,13 +21,16 @@
             $tbSum[] = $tb[0];
         }
     }
-    
-    $biggest = max($tbSum);
-    foreach($carrots as $key => $carrot){
-        if($carrot == $biggest){
-            echo $key;
-            break;
+    if(isset($tbSum)){
+        $biggest = max($tbSum);
+        foreach($carrots as $key => $carrot){
+            if($carrot == $biggest){
+                echo $key;
+                break;
+            }
         }
+    } else {
+        echo "not found";
     }
             
 ?>
