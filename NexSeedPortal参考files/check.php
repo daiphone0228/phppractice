@@ -1,13 +1,13 @@
 <script type="text/javascript">
-    function check(){
-        if (confirm('入力いただいた内容を登録しますがよろしいですか。')){
-        	//okボタンを押した時
-        	//location.href = 'login.php';
-            return true;
-        } else {
-            return false;
-        }
-    }
+	function check(){
+		if (confirm('入力いただいた内容を登録しますがよろしいですか。')){
+			//okボタンを押した時
+			//location.href = 'login.php';
+			return true;
+		} else {
+			return false;
+		}
+	}
 
  </script>
 
@@ -43,25 +43,25 @@
 					<div class="signup-header wow fadeInUp">
 						<h3 class="form-title text-center">Check Your Profile!</h3>
 						<form class="form-header" action="" role="form" method="POST" id="#">
-        					<input type="hidden" name="action" value="submit">
+							<input type="hidden" name="action" value="submit">
 						<!-- <input type="hidden" name="u" value="503bdae81fde8612ff4944435"> -->
 						<!-- <input type="hidden" name="id" value="bfdba52708"> -->
 							<div class="form-group">
 								<div class="insert_box">
-								    <?php echo htmlspecialchars($_SESSION['join']['name'], ENT_QUOTES, 'UTF-8'); ?>
-							    </div>
+									<?php echo htmlspecialchars($_SESSION['join']['name'], ENT_QUOTES, 'UTF-8'); ?>
+								</div>
 								<!-- <input class="form-control input-lg" name="name" type="text" placeholder="Name" required> -->
 							</div>
 							<div class="form-group">
 								<div class="insert_box">
-								    <?php echo htmlspecialchars($_SESSION['join']['email'], ENT_QUOTES, 'UTF-8'); ?>
-							    </div>
+									<?php echo htmlspecialchars($_SESSION['join']['email'], ENT_QUOTES, 'UTF-8'); ?>
+								</div>
 								<!-- <input class="form-control input-lg" name="email" type="email" placeholder="Email address" required> -->
 							</div>
 							<div class="form-group">
 								<div class="insert_box">
-								    [表示されません]
-							    </div>
+									[表示されません]
+								</div>
 								<!-- <input class="form-control input-lg" name="password" type="password" placeholder="Password" required> -->
 							</div>
 							<!-- <div class="form-group last"> -->

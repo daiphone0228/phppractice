@@ -5,8 +5,8 @@
 $input = trim(fgets(STDIN));
 // 値がからでなければループして値を取得し続ける。
 while($input){
-    $array[] = $input;
-    $input = trim(fgets(STDIN));
+	$array[] = $input;
+	$input = trim(fgets(STDIN));
 }
 print_r($array);
 
@@ -19,10 +19,10 @@ print_r($array);
 $input = trim(fgets(STDIN));
 // $inputの値が空で無ければループする
 while($input){
-    // 配列に$inputの値を追加
-    $array[] = $input;
-    // 標準入力から1行データを取得
-    $input = trim(fgets(STDIN));
+	// 配列に$inputの値を追加
+	$array[] = $input;
+	// 標準入力から1行データを取得
+	$input = trim(fgets(STDIN));
 }
 print_r($array);
 ?>
@@ -31,8 +31,8 @@ print_r($array);
 
 $input = fgets(STDIN);
 while($input){
-    $array[] = trim($input);
-    $input = fgets(STDIN);
+	$array[] = trim($input);
+	$input = fgets(STDIN);
 }
 print_r($array);
 
@@ -48,7 +48,7 @@ print_r($array);
 // 下記のようにwhile文に標準入力の取り込みコードをいれてしまう。
 
 while($input = fgets(STDIN)){
-    $array[] = trim($input);
+	$array[] = trim($input);
 }
 print_r($array);
 
@@ -61,11 +61,11 @@ print_r($array);
 <?php
 // 標準入力から1行取得し値があればループ
 while($input = fgets(STDIN)){
-    // if文の前にtrimしておくのがポイント
-    $input = trim($input);
-    if($input == "勇者"){
-        $array[] = $input;
-    }
+	// if文の前にtrimしておくのがポイント
+	$input = trim($input);
+	if($input == "勇者"){
+		$array[] = $input;
+	}
 }
 echo count($array);
 
@@ -107,7 +107,7 @@ echo $member[$key];
 
 // 今回は自力で全部書いてみよう！
 while($input=fgets(STDIN)){
-    $array[] = trim($input);
+	$array[] = trim($input);
 }
 print_r($array);
 $max = count($array) - 1;

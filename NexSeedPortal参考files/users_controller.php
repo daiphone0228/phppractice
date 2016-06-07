@@ -41,8 +41,8 @@
 			$this->error = $user->error;
 
 			if(isset($post) && !empty($post)) {
-			    $this->email = htmlspecialchars($post['email'], ENT_QUOTES, 'UTF-8');
-			    $this->password = htmlspecialchars($post['password'], ENT_QUOTES, 'UTF-8');
+				$this->email = htmlspecialchars($post['email'], ENT_QUOTES, 'UTF-8');
+				$this->password = htmlspecialchars($post['password'], ENT_QUOTES, 'UTF-8');
 			}
 
 			//ビューを呼び出す
@@ -62,9 +62,9 @@
 
 			//変数の引き渡しはコントローラーの役割であってる？
 			if(isset($post) && !empty($post)) {
-			    $this->name = htmlspecialchars($post['name'], ENT_QUOTES, 'UTF-8');
-			    $this->email = htmlspecialchars($post['email'], ENT_QUOTES, 'UTF-8');
-			    $this->password = htmlspecialchars($post['password1'], ENT_QUOTES, 'UTF-8');
+				$this->name = htmlspecialchars($post['name'], ENT_QUOTES, 'UTF-8');
+				$this->email = htmlspecialchars($post['email'], ENT_QUOTES, 'UTF-8');
+				$this->password = htmlspecialchars($post['password1'], ENT_QUOTES, 'UTF-8');
 			}
 
 			//ビューを呼び出す

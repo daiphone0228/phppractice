@@ -35,30 +35,30 @@
 						<input type="hidden" name="id" value="bfdba52708"> -->
 							<div class="form-group">
 								<input class="form-control input-lg" name="email" id="name" type="email" placeholder="Email Address" value="<?php echo $this->email; ?>" required>
-					            <?php if(isset($this->error['login']) && $this->error['login'] == 'blank'): ?>
-					            	<p class="error">* メールアドレスとパスワードをご記入ください。</p>
-					            <?php elseif(isset($this->error['login']) && $this->error['login'] == 'noexist'): ?>
-				            		<p class="error">* メールアドレスかパスワードが間違っています。</p>
-					            <?php elseif(isset($this->error['login']) && $this->error['login'] == 'failed'): ?>
-				            		<p class="error">* メールアドレスかパスワードが間違っています。</p>
-				            	<?php endif; ?>
+								<?php if(isset($this->error['login']) && $this->error['login'] == 'blank'): ?>
+									<p class="error">* メールアドレスとパスワードをご記入ください。</p>
+								<?php elseif(isset($this->error['login']) && $this->error['login'] == 'noexist'): ?>
+									<p class="error">* メールアドレスかパスワードが間違っています。</p>
+								<?php elseif(isset($this->error['login']) && $this->error['login'] == 'failed'): ?>
+									<p class="error">* メールアドレスかパスワードが間違っています。</p>
+								<?php endif; ?>
 							</div>
 							<div class="form-group">
 								<input class="form-control input-lg" name="password" id="email" type="password" placeholder="Password (4文字以上16文字以下)" required>
 								<?php if(isset($this->error['login']) && $this->error['login'] == 'length'): ?>
-				            		<p class="error">* パスワードは4文字以上16文字以下で入力してください。</p>
-				            	<?php endif; ?>
+									<p class="error">* パスワードは4文字以上16文字以下で入力してください。</p>
+								<?php endif; ?>
 							</div>
 							<div class="form-group last">
 									<!-- チェックボックス追加 -->
 									<form class="form-horizontal">
-									    <div class="form-group">
-									        <div class="col-xs-7">
-									            <label class="checkbox-inline">
-									                <input type="checkbox" name="save">Auto Login
-									            </label>
-									        </div>
-									    </div>
+										<div class="form-group">
+											<div class="col-xs-7">
+												<label class="checkbox-inline">
+													<input type="checkbox" name="save">Auto Login
+												</label>
+											</div>
+										</div>
 									</form>
 								<a href="/NexSeedPortal/users/add"><input type="botton" class="btn btn-warning btn-block btn-lg" value="Register" style="margin-left:5px; float:left;"></a>
  								<!-- <input type="submit" class="btn btn-warning btn-block btn-lg" value="Login" style="margin-left:5px; float:left;"> -->

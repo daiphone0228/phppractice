@@ -57,9 +57,9 @@
 
 			//変数の引き渡しはコントローラーの役割であってる？
 			if(isset($post) && !empty($post)) {
-			    $this->name = htmlspecialchars($post['name'], ENT_QUOTES, 'UTF-8');
-			    $this->email = htmlspecialchars($post['email'], ENT_QUOTES, 'UTF-8');
-			    $this->password = htmlspecialchars($post['password1'], ENT_QUOTES, 'UTF-8');
+				$this->name = htmlspecialchars($post['name'], ENT_QUOTES, 'UTF-8');
+				$this->email = htmlspecialchars($post['email'], ENT_QUOTES, 'UTF-8');
+				$this->password = htmlspecialchars($post['password1'], ENT_QUOTES, 'UTF-8');
 			}
 
 			//ビューを呼び出す
@@ -106,45 +106,45 @@
 
 		public function login($post) {
 			if (isset($_COOKIE['email']) && $_COOKIE['email'] != '') {
-			    $post['email'] = $_COOKIE['email'];
-			    $post['password'] = $_COOKIE['password'];
-			    $post['save'] = 'on';
+				$post['email'] = $_COOKIE['email'];
+				$post['password'] = $_COOKIE['password'];
+				$post['save'] = 'on';
 			}
 
 			if (!empty($post)) {
-		    	if ($post['email'] != '' && $post['password'] != '') {
-			    	$sql = sprintf('SELECT COUNT(*) AS cnt FROM users WHERE email="%s"',
-			        	mysqli_real_escape_string($this->dbconnect, $post['email'])
-			    	);
-				    $record = mysqli_query($this->dbconnect, $sql);
-				    $table = mysqli_fetch_assoc($record);
-				    if ($table['cnt'] == 0) {
-				        $error['login'] = 'noexist';
-				    } elseif (strlen($post['password']) < 4 || strlen($post['password']) > 16) {
-				    	$error['login'] = 'length';
-				    } else {
-				    	$sql = sprintf('SELECT * FROM users WHERE email="%s" AND password="%s"',
-				        	mysqli_real_escape_string($this->dbconnect, $post['email']),
-				        	mysqli_real_escape_string($this->dbconnect, sha1($post['password']))
-			        	);
-			      		$record = mysqli_query($this->dbconnect, $sql) or die(mysqli_error($this->dbconnect));
-			      		if ($table = mysqli_fetch_assoc($record)) {
-				        	//ログイン成功
-				        	$_SESSION['user_id'] = $table['user_id'];
-				        	$_SESSION['time'] = time();
-				        	if ($post['save'] == 'on') {
-					          	setcookie('email', $post['email'], time()+60*60*24*14);
-					          	setcookie('password', $post['password'], time()+60*60*24*14);
-				        	}
-				        	header('Location: /NexSeedPortal/contents/index');
-				        	exit();
-				      	} else {
-				        	$error['login'] = 'failed';
-				      	}
-				    }
-		    	} else {
-		      		$error['login'] = 'blank';
-		    	}
+				if ($post['email'] != '' && $post['password'] != '') {
+					$sql = sprintf('SELECT COUNT(*) AS cnt FROM users WHERE email="%s"',
+						mysqli_real_escape_string($this->dbconnect, $post['email'])
+					);
+					$record = mysqli_query($this->dbconnect, $sql);
+					$table = mysqli_fetch_assoc($record);
+					if ($table['cnt'] == 0) {
+						$error['login'] = 'noexist';
+					} elseif (strlen($post['password']) < 4 || strlen($post['password']) > 16) {
+						$error['login'] = 'length';
+					} else {
+						$sql = sprintf('SELECT * FROM users WHERE email="%s" AND password="%s"',
+							mysqli_real_escape_string($this->dbconnect, $post['email']),
+							mysqli_real_escape_string($this->dbconnect, sha1($post['password']))
+						);
+				  		$record = mysqli_query($this->dbconnect, $sql) or die(mysqli_error($this->dbconnect));
+				  		if ($table = mysqli_fetch_assoc($record)) {
+							//ログイン成功
+							$_SESSION['user_id'] = $table['user_id'];
+							$_SESSION['time'] = time();
+							if ($post['save'] == 'on') {
+							  	setcookie('email', $post['email'], time()+60*60*24*14);
+							  	setcookie('password', $post['password'], time()+60*60*24*14);
+							}
+							header('Location: /NexSeedPortal/contents/index');
+							exit();
+					  	} else {
+							$error['login'] = 'failed';
+					  	}
+					}
+				} else {
+			  		$error['login'] = 'blank';
+				}
 
 				$this->error = $error;
 			}
@@ -158,45 +158,45 @@
 			}
 
 			if(isset($post) && !empty($post)) {
-			    $name = htmlspecialchars($post['name'], ENT_QUOTES, 'UTF-8');
-			    $email = htmlspecialchars($post['email'], ENT_QUOTES, 'UTF-8');
-			    $password = htmlspecialchars($post['password1'], ENT_QUOTES, 'UTF-8');
+				$name = htmlspecialchars($post['name'], ENT_QUOTES, 'UTF-8');
+				$email = htmlspecialchars($post['email'], ENT_QUOTES, 'UTF-8');
+				$password = htmlspecialchars($post['password1'], ENT_QUOTES, 'UTF-8');
 
-			    if($post['name']=='') {
-			    	$error['name'] = 'blank';
-			    }
-			    if($post['email']=='') {
-			    	$error['email'] = 'blank';
-			    }
-			    if($post['password1']=='') {
-			     	$error['password'] = 'blank';
-			    } elseif (strlen($post['password1']) < 4 || strlen($post['password1']) > 16) {
-			    	$error['password'] = 'length';
-			    } elseif ($post['password1'] != $post['password2']) {
-			    	$error['password'] = 'incorrect';
-			    }
+				if($post['name']=='') {
+					$error['name'] = 'blank';
+				}
+				if($post['email']=='') {
+					$error['email'] = 'blank';
+				}
+				if($post['password1']=='') {
+				 	$error['password'] = 'blank';
+				} elseif (strlen($post['password1']) < 4 || strlen($post['password1']) > 16) {
+					$error['password'] = 'length';
+				} elseif ($post['password1'] != $post['password2']) {
+					$error['password'] = 'incorrect';
+				}
 
-			    if (empty($error)) {
-			    	//重複アカウントのチェック
-			    	$sql = sprintf('SELECT COUNT(*) AS cnt FROM users WHERE email="%s"',
-			        	mysqli_real_escape_string($this->dbconnect, $post['email'])
-			    	);
-				    $record = mysqli_query($this->dbconnect, $sql);
-				    $table = mysqli_fetch_assoc($record);
-				    if ($table['cnt'] > 0) {
-				        $error['email'] = 'duplicate';
-				    } else {
-				        $_SESSION['join'] = $post;
-				        header('Location: /NexSeedPortal/users/confirm/');
-				        exit();
-				    }
+				if (empty($error)) {
+					//重複アカウントのチェック
+					$sql = sprintf('SELECT COUNT(*) AS cnt FROM users WHERE email="%s"',
+						mysqli_real_escape_string($this->dbconnect, $post['email'])
+					);
+					$record = mysqli_query($this->dbconnect, $sql);
+					$table = mysqli_fetch_assoc($record);
+					if ($table['cnt'] > 0) {
+						$error['email'] = 'duplicate';
+					} else {
+						$_SESSION['join'] = $post;
+						header('Location: /NexSeedPortal/users/confirm/');
+						exit();
+					}
 
-			    }
+				}
 			}
 
 			if (isset($_REQUEST['action']) && $_REQUEST['action']=='rewrite') {
-			    $this->rewrite = $_SESSION['join'];
-			    $error['rewrite'] = true;
+				$this->rewrite = $_SESSION['join'];
+				$error['rewrite'] = true;
 			}
 			$this->error = $error;
 		}
@@ -211,18 +211,18 @@
 
 		public function create() {
 			//if (!empty($post)) {
-			    //登録処理
-			    $sql = sprintf('INSERT INTO users SET user_name="%s", email="%s", password="%s", created=now()',
-			    	mysqli_real_escape_string($this->dbconnect, $_SESSION['join']['name']),
-			    	mysqli_real_escape_string($this->dbconnect, $_SESSION['join']['email']),
-			    	mysqli_real_escape_string($this->dbconnect, sha1($_SESSION['join']['password1']))
-			    );
+				//登録処理
+				$sql = sprintf('INSERT INTO users SET user_name="%s", email="%s", password="%s", created=now()',
+					mysqli_real_escape_string($this->dbconnect, $_SESSION['join']['name']),
+					mysqli_real_escape_string($this->dbconnect, $_SESSION['join']['email']),
+					mysqli_real_escape_string($this->dbconnect, sha1($_SESSION['join']['password1']))
+				);
 
-			    mysqli_query($this->dbconnect, $sql) or die(mysqli_error($this->dbconnect));
-			    //登録したので、セッション情報を破棄
-			    unset($_SESSION['join']);
-			    header('Location: /NexSeedPortal/users/login/');
-			    exit();
+				mysqli_query($this->dbconnect, $sql) or die(mysqli_error($this->dbconnect));
+				//登録したので、セッション情報を破棄
+				unset($_SESSION['join']);
+				header('Location: /NexSeedPortal/users/login/');
+				exit();
 			//}
 		}
 
@@ -232,15 +232,15 @@
  
 
 <script type="text/javascript">
-    function check(){
-        if (confirm('入力いただいた内容を登録しますがよろしいですか。')){
-        	//okボタンを押した時
-        	//location.href = 'login.php';
-            return true;
-        } else {
-            return false;
-        }
-    }
+	function check(){
+		if (confirm('入力いただいた内容を登録しますがよろしいですか。')){
+			//okボタンを押した時
+			//location.href = 'login.php';
+			return true;
+		} else {
+			return false;
+		}
+	}
 
  </script>
 
@@ -276,25 +276,25 @@
 					<div class="signup-header wow fadeInUp">
 						<h3 class="form-title text-center">Check Your Profile!</h3>
 						<form class="form-header" action="" role="form" method="POST" id="#">
-        					<input type="hidden" name="action" value="submit">
+							<input type="hidden" name="action" value="submit">
 						<!-- <input type="hidden" name="u" value="503bdae81fde8612ff4944435"> -->
 						<!-- <input type="hidden" name="id" value="bfdba52708"> -->
 							<div class="form-group">
 								<div class="insert_box">
-								    <?php echo htmlspecialchars($_SESSION['join']['name'], ENT_QUOTES, 'UTF-8'); ?>
-							    </div>
+									<?php echo htmlspecialchars($_SESSION['join']['name'], ENT_QUOTES, 'UTF-8'); ?>
+								</div>
 								<!-- <input class="form-control input-lg" name="name" type="text" placeholder="Name" required> -->
 							</div>
 							<div class="form-group">
 								<div class="insert_box">
-								    <?php echo htmlspecialchars($_SESSION['join']['email'], ENT_QUOTES, 'UTF-8'); ?>
-							    </div>
+									<?php echo htmlspecialchars($_SESSION['join']['email'], ENT_QUOTES, 'UTF-8'); ?>
+								</div>
 								<!-- <input class="form-control input-lg" name="email" type="email" placeholder="Email address" required> -->
 							</div>
 							<div class="form-group">
 								<div class="insert_box">
-								    [表示されません]
-							    </div>
+									[表示されません]
+								</div>
 								<!-- <input class="form-control input-lg" name="password" type="password" placeholder="Password" required> -->
 							</div>
 							<!-- <div class="form-group last"> -->
@@ -349,38 +349,38 @@
 							<div class="form-group">
 								<!-- <h3>Name</h3> -->
 								<input class="form-control input-lg" name="name" type="text" placeholder="Name" value="<?php echo $this->name; ?>" required>
-				            	<?php if(isset($this->error['name']) && $this->error['name']=='blank'){ ?>
-				            		<p class="error">*名前を入力してください</p>
-				            	<?php } ?>
+								<?php if(isset($this->error['name']) && $this->error['name']=='blank'){ ?>
+									<p class="error">*名前を入力してください</p>
+								<?php } ?>
 							</div>
 							<div class="form-group">
 								<!-- <h3>Email</h3> -->
 								<input class="form-control input-lg" name="email" type="email" placeholder="Email address" value="<?php echo $this->email; ?>" required>
-				            	<?php if(isset($this->error['email']) && $this->error['email']=='blank'){ ?>
-				            		<p class="error">*メールアドレスを入力してください</p>
-				            	<?php } elseif(isset($this->error['email']) && $this->error['email']=='duplicate') { ?>
-				             		<p class="error">*指定されたメールアドレスは既に登録されています</p>
-            					<?php } ?>
+								<?php if(isset($this->error['email']) && $this->error['email']=='blank'){ ?>
+									<p class="error">*メールアドレスを入力してください</p>
+								<?php } elseif(isset($this->error['email']) && $this->error['email']=='duplicate') { ?>
+							 		<p class="error">*指定されたメールアドレスは既に登録されています</p>
+								<?php } ?>
 							</div>
 							<div class="form-group">
 								<!-- <h3>Password</h3> -->
 								<input class="form-control input-lg" name="password1" type="password" placeholder="Password" value="<?php echo $this->password; ?>" required>
-				            	<?php if(isset($this->error['password'])){ ?>
-				            		<?php if($this->error['password']=='blank'){ ?>
-				            			<p class="error">*パスワードを入力してください</p>
-				            		<?php } elseif ($this->error['password']=='length') { ?>
-				            			<p class="error">*パスワードは４文字から１６文字で入力してください</p>
-				            		<?php } ?>
-				            	<?php } ?>
+								<?php if(isset($this->error['password'])){ ?>
+									<?php if($this->error['password']=='blank'){ ?>
+										<p class="error">*パスワードを入力してください</p>
+									<?php } elseif ($this->error['password']=='length') { ?>
+										<p class="error">*パスワードは４文字から１６文字で入力してください</p>
+									<?php } ?>
+								<?php } ?>
 							</div>
 							<div class="form-group">
 								<!-- <h3>Password(for check)</h3> -->
 								<input class="form-control input-lg" name="password2" type="password" placeholder="Password(for check)" value="<?php echo $this->password; ?>" required>
 								<?php if(isset($this->error['password'])){ ?>
-				            		<?php if($this->error['password']=='incorrect'){ ?>
-				            			<p class="error">*２つのパスワードが一致しません</p>
-				            		<?php } ?>
-				            	<?php } ?>
+									<?php if($this->error['password']=='incorrect'){ ?>
+										<p class="error">*２つのパスワードが一致しません</p>
+									<?php } ?>
+								<?php } ?>
 							</div>
 							<div class="form-group last">
  								<input type="submit" class="btn btn-warning btn-block btn-lg" value="Next!" style="margin-left:5px; float:left;">

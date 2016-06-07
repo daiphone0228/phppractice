@@ -17,10 +17,10 @@ print_r($item);
 // 細かい作業を繰り返すイメージでやる
 // keyとvalueを分ける場合などもそう
 while($i = trim(fgets(STDIN))){
-    $key_value = explode(",", $i);
-    $key = $key_value[0];
-    $value = $key_value[1];
-    $item[$key] = $value;
+	$key_value = explode(",", $i);
+	$key = $key_value[0];
+	$value = $key_value[1];
+	$item[$key] = $value;
 }
 arsort($item);
 print_r($item);
@@ -41,11 +41,11 @@ while($input = trim(fgets(STDIN))){
 // 2000円以下の商品を価格が高い方から順に並べ替えて
 // print_rで出力するプログラムを書いてみましょう。
 foreach($item as $key => $value){
-    if($value <= 2000){
-        $item2[$key] = $value;
-    }else{
-        false;
-    }
+	if($value <= 2000){
+		$item2[$key] = $value;
+	}else{
+		false;
+	}
 }
 arsort($item2);
 print_r($item2);
@@ -69,25 +69,25 @@ arsort($result);
 print_r($result);
 
 foreach($result as $key => $value){
-    $i = $i + 1;
-    if ($key == "勇者"){
-        echo $i;
-    }
+	$i = $i + 1;
+	if ($key == "勇者"){
+		echo $i;
+	}
 }
 
 ?>
 
 <?php
 $item_img = array(
-    "剣" => "http://paiza.jp/learning/images/sword.png",
-    "盾" => "http://paiza.jp/learning/images/shield.png",
-    "回復薬" => "http://paiza.jp/learning/images/potion.png",
-    "クリスタル" => "http://paiza.jp/learning/images/crystal.png"
+	"剣" => "http://paiza.jp/learning/images/sword.png",
+	"盾" => "http://paiza.jp/learning/images/shield.png",
+	"回復薬" => "http://paiza.jp/learning/images/potion.png",
+	"クリスタル" => "http://paiza.jp/learning/images/crystal.png"
 );
 // ここから下に記述
 // 画像URLの配列を1つずつimgタグで合わせて表示
 foreach ($item_img as $item_imag2){
-    echo "<img src=".$item_imag2."><br>\n";
+	echo "<img src=".$item_imag2."><br>\n";
 }
 
 ?>

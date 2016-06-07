@@ -1,87 +1,87 @@
 <?php
-    // 総当り戦の計算
-    $input= fgets(STDIN);
-    echo $input*($input-1) / 2;
+	// 総当り戦の計算
+	$input= fgets(STDIN);
+	echo $input*($input-1) / 2;
 ?>
 
 <?php
-    // 旅行の計画（paizaのCランク）
+	// 旅行の計画（paizaのCランク）
 	// 1行目に全日数と、旅行の日数が与えられる
 	// 2行目以降に、その日数分の日にちと降水確率が与えられる
 	// 行数は1行目の全日数分+1日
-    $input = trim(fgets(STDIN));
-    $trip = explode(" ", $input);
-    for($trip[0]; $trip[0]>0; $trip[0]--) {
-        $input = trim(fgets(STDIN));
-        $weather = explode(" ", $input);
-        $day[$weather[0]] = $weather[1];
-    }
-    var_dump($day);
+	$input = trim(fgets(STDIN));
+	$trip = explode(" ", $input);
+	for($trip[0]; $trip[0]>0; $trip[0]--) {
+		$input = trim(fgets(STDIN));
+		$weather = explode(" ", $input);
+		$day[$weather[0]] = $weather[1];
+	}
+	var_dump($day);
 ?>
 
 <?php
-    // 一行で出力される文字列（英単語が半角スペースで区切られている	）
+	// 一行で出力される文字列（英単語が半角スペースで区切られている	）
 	// その文字列の値と出現回数を一行ずつ出力する
 	// explodeで分解して、array_count_valuesで出現回数とその値を連想配列にいれる
 	// それらを順に出力する
-    $input = trim(fgets(STDIN));
-    $eng = explode(" ", $input);
-    $result = array_count_values($eng);
-    foreach($result as $key => $value){
-        echo $key . " " . $value . "\n";
-    }
+	$input = trim(fgets(STDIN));
+	$eng = explode(" ", $input);
+	$result = array_count_values($eng);
+	foreach($result as $key => $value){
+		echo $key . " " . $value . "\n";
+	}
 ?>
 
 <?php
-    // 自分の得意な言語で
-    // Let's チャレンジ！！
-    $input = trim(fgets(STDIN));
-    $trip = explode(" ", $input);
-    for($trip[0]; $trip[0]>0; $trip[0]--) {
-        $input = trim(fgets(STDIN));
-        $weather = explode(" ", $input);
-        $day[$weather[0]] = $weather[1];
-    }
-    // var_dump($trip[1]);
-    // var_dump($day);
-    foreach($day as $rain){
-        $tripDuring[] = $rain;
-        if(count($tripDuring) == $trip[1]){
-            $rainAverage = floor(array_sum($tripDuring) / $trip[1]);
-            $rainAverageSum[] = $rainAverage;
-            unset($tripDuring[0]);
-            $tripDuring = array_merge($tripDuring);
-        }
-    }
-    $rainMin = min($rainAverageSum);
-    // var_dump($day);
-    $tripDate = array();
-    foreach($day as $date => $rain){
-        $tripAdd = array($date."日" => $rain);
-        $tripDate = $tripDate + $tripAdd;
-        if(count($tripDate) == $trip[1]){
-            // var_dump($tripDate);
-            $rainAverage = floor(array_sum($tripDate) / $trip[1]);
-            if($rainAverage == $rainMin){
-                // $firstAndEnd = array_keys($tripDate);
-            	reset($tripDate);
-            	$first = rtrim(key($tripDate), "日");
-            	end($tripDate);
-            	$end = rtrim(key($tripDate), "日");
-            }
-           	array_shift($tripDate);
-        }
-    }
+	// 自分の得意な言語で
+	// Let's チャレンジ！！
+	$input = trim(fgets(STDIN));
+	$trip = explode(" ", $input);
+	for($trip[0]; $trip[0]>0; $trip[0]--) {
+		$input = trim(fgets(STDIN));
+		$weather = explode(" ", $input);
+		$day[$weather[0]] = $weather[1];
+	}
+	// var_dump($trip[1]);
+	// var_dump($day);
+	foreach($day as $rain){
+		$tripDuring[] = $rain;
+		if(count($tripDuring) == $trip[1]){
+			$rainAverage = floor(array_sum($tripDuring) / $trip[1]);
+			$rainAverageSum[] = $rainAverage;
+			unset($tripDuring[0]);
+			$tripDuring = array_merge($tripDuring);
+		}
+	}
+	$rainMin = min($rainAverageSum);
+	// var_dump($day);
+	$tripDate = array();
+	foreach($day as $date => $rain){
+		$tripAdd = array($date."日" => $rain);
+		$tripDate = $tripDate + $tripAdd;
+		if(count($tripDate) == $trip[1]){
+			// var_dump($tripDate);
+			$rainAverage = floor(array_sum($tripDate) / $trip[1]);
+			if($rainAverage == $rainMin){
+				// $firstAndEnd = array_keys($tripDate);
+				reset($tripDate);
+				$first = rtrim(key($tripDate), "日");
+				end($tripDate);
+				$end = rtrim(key($tripDate), "日");
+			}
+		   	array_shift($tripDate);
+		}
+	}
 
 	echo $first . " " . $end;
 
-    //var_dump($rain);
-    // var_dump($tripDate);
-    // var_dump($rainAverageSum);
-    // var_dump($rainMin);
-    // var_dump($first);
-    // var_dump($end);
-    // var_dump($firstAndEnd);
+	//var_dump($rain);
+	// var_dump($tripDate);
+	// var_dump($rainAverageSum);
+	// var_dump($rainMin);
+	// var_dump($first);
+	// var_dump($end);
+	// var_dump($firstAndEnd);
 
 ?>
 
@@ -107,94 +107,94 @@
 		// 通常、連想配列をarray_shift()するとキーはそのまま残るのだが、数字のみに場合、通常の配列と認識されてしまうため、あえて最初にキーとして代入するときに、"日"という文字を追加する
 		// もちろん取り出すときは"日"は必要ないため、rtrim()関数で指定の文字列のみ削除するようにする
 	// 最後に取り出した旅行の日程の最初と最後の日付を半角スペースで間を空け表示する
-    $input = trim(fgets(STDIN));
-    $trip = explode(" ", $input);
-    for($trip[0]; $trip[0]>0; $trip[0]--) {
-        $input = trim(fgets(STDIN));
-        $weather = explode(" ", $input);
-        $day[$weather[0]] = $weather[1];
-    }
-    foreach($day as $rain){
-        $tripDuring[] = $rain;
-        if(count($tripDuring) == $trip[1]){
-            $rainAverage = floor(array_sum($tripDuring) / $trip[1]);
-            $rainAverageSum[] = $rainAverage;
-            unset($tripDuring[0]);
-            $tripDuring = array_merge($tripDuring);
-        }
-    }
-    $rainMin = min($rainAverageSum);
-    $tripDate = array();
-    foreach($day as $date => $rain){
-        $tripAdd = array($date."日" => $rain);
-        $tripDate = $tripDate + $tripAdd;
-        if(count($tripDate) == $trip[1]){
-            $rainAverage = floor(array_sum($tripDate) / $trip[1]);
-            if($rainAverage == $rainMin){
-            	reset($tripDate);
-            	$first = rtrim(key($tripDate), "日");
-            	end($tripDate);
-            	$end = rtrim(key($tripDate), "日");
-            }
-           	array_shift($tripDate);
-        }
-    }
-    
-    echo $first . " " . $end;
+	$input = trim(fgets(STDIN));
+	$trip = explode(" ", $input);
+	for($trip[0]; $trip[0]>0; $trip[0]--) {
+		$input = trim(fgets(STDIN));
+		$weather = explode(" ", $input);
+		$day[$weather[0]] = $weather[1];
+	}
+	foreach($day as $rain){
+		$tripDuring[] = $rain;
+		if(count($tripDuring) == $trip[1]){
+			$rainAverage = floor(array_sum($tripDuring) / $trip[1]);
+			$rainAverageSum[] = $rainAverage;
+			unset($tripDuring[0]);
+			$tripDuring = array_merge($tripDuring);
+		}
+	}
+	$rainMin = min($rainAverageSum);
+	$tripDate = array();
+	foreach($day as $date => $rain){
+		$tripAdd = array($date."日" => $rain);
+		$tripDate = $tripDate + $tripAdd;
+		if(count($tripDate) == $trip[1]){
+			$rainAverage = floor(array_sum($tripDate) / $trip[1]);
+			if($rainAverage == $rainMin){
+				reset($tripDate);
+				$first = rtrim(key($tripDate), "日");
+				end($tripDate);
+				$end = rtrim(key($tripDate), "日");
+			}
+		   	array_shift($tripDate);
+		}
+	}
+	
+	echo $first . " " . $end;
 
 
 ?>
 
 <?php
-    // C029:旅行の計画の復習
-    // 連休日数と旅行日数を取得
-    $input = trim(fgets(STDIN));
-    $param = explode(" ", $input);
-    $allDay = $param[0];
-    $trip = $param[1];
-    $dayArray = array();
-    // echo $day;
-    // echo $trip;
-    // 全日数の日付と降水確率を配列にいれる
-    // 日付はキーとして
-    for($i=0; $i<$allDay; $i++){
-        $l = trim(fgets(STDIN));
-        $param2 = explode(" ", $l);
-        $rain = $param2[1];
-        $day = $param2[0];
-        $dayArray[$day."日"] = $rain; // この際日付として"日"を入れておかないと、切り取った時にキーの値がリセットされてしまう
-    }
-    // var_dump($dayArray);
-    // 旅行日数分の降水確率を引っ張る際にその必要回数を取得
-    $roop = $allDay - $trip + 1; // 全体の日数 - 旅行日数 + 1で求められる
-    // その回数分for文をまわす
-    for($i=0; $i<$roop; $i++){
-        $rainSum = array_slice($dayArray, $i, $trip); // 切り取り
-        $rainAverage[] = intval(array_sum($rainSum) / $trip); // 平均の整数を配列にいれる
-    }
-    // var_dump($rainAverage);
-    // その中の最小の値を変数に代入
-    $min = min($rainAverage);
-    // echo $min;
-    for($i=0; $i<$roop; $i++){
-        $rainSum = array_slice($dayArray, $i, $trip);
-        $rainAve2 = intval(array_sum($rainSum) / $trip);
-        if($rainAve2 == $min){
-            // var_dump($rainSum);
-            // 最小の値のときの切り取った配列を別の配列に代入
-            $bestDays = $rainSum;
-        }
-    }
-    // キーを取得する
-    foreach($bestDays as $key => $value){
-        $result[] = str_replace("日", "",$key);
-    }
-    // var_dump($result);
-    $first = $result[0];
-    $end = $result[$trip-1];
-    
-    echo $first. " ". $end;
-        
+	// C029:旅行の計画の復習
+	// 連休日数と旅行日数を取得
+	$input = trim(fgets(STDIN));
+	$param = explode(" ", $input);
+	$allDay = $param[0];
+	$trip = $param[1];
+	$dayArray = array();
+	// echo $day;
+	// echo $trip;
+	// 全日数の日付と降水確率を配列にいれる
+	// 日付はキーとして
+	for($i=0; $i<$allDay; $i++){
+		$l = trim(fgets(STDIN));
+		$param2 = explode(" ", $l);
+		$rain = $param2[1];
+		$day = $param2[0];
+		$dayArray[$day."日"] = $rain; // この際日付として"日"を入れておかないと、切り取った時にキーの値がリセットされてしまう
+	}
+	// var_dump($dayArray);
+	// 旅行日数分の降水確率を引っ張る際にその必要回数を取得
+	$roop = $allDay - $trip + 1; // 全体の日数 - 旅行日数 + 1で求められる
+	// その回数分for文をまわす
+	for($i=0; $i<$roop; $i++){
+		$rainSum = array_slice($dayArray, $i, $trip); // 切り取り
+		$rainAverage[] = intval(array_sum($rainSum) / $trip); // 平均の整数を配列にいれる
+	}
+	// var_dump($rainAverage);
+	// その中の最小の値を変数に代入
+	$min = min($rainAverage);
+	// echo $min;
+	for($i=0; $i<$roop; $i++){
+		$rainSum = array_slice($dayArray, $i, $trip);
+		$rainAve2 = intval(array_sum($rainSum) / $trip);
+		if($rainAve2 == $min){
+			// var_dump($rainSum);
+			// 最小の値のときの切り取った配列を別の配列に代入
+			$bestDays = $rainSum;
+		}
+	}
+	// キーを取得する
+	foreach($bestDays as $key => $value){
+		$result[] = str_replace("日", "",$key);
+	}
+	// var_dump($result);
+	$first = $result[0];
+	$end = $result[$trip-1];
+	
+	echo $first. " ". $end;
+		
 ?>
 
 
